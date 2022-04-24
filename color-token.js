@@ -82,36 +82,32 @@ class ColorToken extends HTMLElement {
     const tmpl = document.createElement("template");
 
     tmpl.innerHTML = `
-${this.styles()}
+${this.styles(color)}
 ${format !== "none" ? this.assigned() : ``}
-  <div class="color" style="background: ${
-      convert(
-        "hex",
-        color,
-      )
-    }; border: var(--color-border-width, 0.25ex) solid ${
-      adjust(
-        { lightness: -25 },
-        color,
-      )
-    }"></div>
+  <div class="color"></div>
   <div class="data">
   ${
-      format !== "none"
-        ? this.formats()
-        : `<span class="value" style="text-transform: lowercase;">${as} (<code>${this.color}</code>)</span>`
-    }
+    format !== "none"
+      ? this.formats()
+      : `<span class="value" style="text-transform: lowercase;">${as} (<code>${this.color}</code>)</span>`
+  }
 </div>
 `;
 
     return tmpl.content.cloneNode(true);
   }
 
-  styles() {
+  styles(color) {
     return `
 <style>
   :host {
     --spacing: 1ex;
+    --color-size: 8vh;
+    --color-border-width: 0.25ex;
+    --color-radius: 100%;
+    --code-family: monospace;
+    --data-width: 32ch;
+
     display: flex;
     flex-flow: row wrap;
     gap: var(--spacing);
@@ -127,8 +123,8 @@ ${format !== "none" ? this.assigned() : ``}
 
   code {
     display: inline;
-    font-family: var(--code-family, monospace);
-    font-size: var(--code-font-size, 1rem);
+    font-family: var(--code-family);
+    font-size: var(--code-font-size);
     text-transform: lowercase;
   }
 
@@ -137,8 +133,11 @@ ${format !== "none" ? this.assigned() : ``}
   }
 
   .color {
-    --color-size: 8vh;
-    --color-radius: 100%;
+    background: ${convert("hex", color)};
+    border: var(--color-border-width) solid ${adjust(
+      { lightness: -25 },
+      color
+    )};
     border-radius: var(--color-radius);
     min-width: var(--color-size);
     min-height: var(--color-size);
@@ -150,7 +149,7 @@ ${format !== "none" ? this.assigned() : ``}
     justify-content: center;
     gap: calc(var(--spacing) / 2);
     flex: 1;
-    flex-basis: var(--data-width, 32ch);
+    flex-basis: var(--data-width);
     font-size: inherit;
   }
 
