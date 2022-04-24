@@ -85,8 +85,19 @@ ${
     return `
 <style>
 :host {
+
+  // Own
   --spacing: 1ex;
   --color-token-width: 45ch;
+
+  // color-token
+  --spacing: 1ex;
+  --color-size: 8vh;
+  --color-border-width: 0.25ex;
+  --color-radius: 100%;
+  --code-family: monospace;
+  --code-font-size: 1rem;
+  --data-width: 32ch;
 
   display: flex;
   flex-flow: row wrap;
