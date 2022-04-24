@@ -1,0 +1,13 @@
+#+TITLE: QuarkSuite Elements (WIP)
+
+* Table of Contents :TOC@5:
+- [[#summary][Summary]]
+
+* Summary
+
+This repo contains vanilla web components for design token development. The main
+purpose is rendering QuarkSuite data, but they also have limited assignment and
+destructuring powers for the QuarkSuite DSL to hook into or for standalone use.
+
+As this is the initial development phase and very much a proof of concept,
+you're already finished with the README for now.
