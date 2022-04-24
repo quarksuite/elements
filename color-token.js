@@ -89,7 +89,7 @@ ${format !== "none" ? this.assigned() : ``}
   ${
       format !== "none"
         ? this.formats()
-        : `<span part="value" style="text-transform: lowercase;">${as} (<code part="code">${this.color}</code>)</span>`
+        : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${this.color}</code></span>`
     }
 </div>
 `;

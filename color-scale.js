@@ -72,7 +72,13 @@ ${
       this.assign(colors)
         .map(
           ([as, color]) =>
-            `<color-token as="${as}" color="${color}" format="${format}" part="color"></color-token>`,
+            `<color-token as="${as}" color="${color}" format="${format}" part="color" exportparts="
+label: color-label,
+swatch: color-swatch,
+data: color-data,
+value: color-value,
+code: color-code,
+actual: color-actual"></color-token>`,
         )
         .join("\n")
     }

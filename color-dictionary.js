@@ -46,7 +46,10 @@ export class ColorDictionary extends HTMLElement {
             return tree(head.concat(key, "."), value);
           }
 
-          return `<li part="token"><color-token part="color" as="${
+          return `<li part="token"><color-token part="color" exportparts="
+swatch: color-swatch,
+value: color-value,
+code: color-code" as="${
             head.concat(
               key,
             )
