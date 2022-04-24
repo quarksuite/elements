@@ -57,8 +57,8 @@ class ColorScale extends HTMLElement {
     return as.split(" ").length > 1
       ? targets.map((as, pos) => [as, colors.split(" ")[pos]])
       : colors
-          .split(" ")
-          .map((color, pos) => [as && [as, pos].join("."), color]);
+        .split(" ")
+        .map((color, pos) => [as && [as, pos].join("."), color]);
   }
 
   template() {
@@ -68,12 +68,14 @@ class ColorScale extends HTMLElement {
 
     tmpl.innerHTML = `
 ${this.styles()}
-${this.assign(colors)
-  .map(
-    ([as, color]) =>
-      `<color-token as="${as}" color="${color}" format="${format}"></color-token>`
-  )
-  .join("\n")}
+${
+      this.assign(colors)
+        .map(
+          ([as, color]) =>
+            `<color-token as="${as}" color="${color}" format="${format}"></color-token>`,
+        )
+        .join("\n")
+    }
 `;
 
     return tmpl.content.cloneNode(true);
@@ -84,6 +86,8 @@ ${this.assign(colors)
 <style>
 :host {
   --spacing: 1ex;
+  --color-token-width: 45ch;
+
   display: flex;
   flex-flow: row wrap;
   gap: var(--spacing);
@@ -95,7 +99,7 @@ ${this.assign(colors)
 
 color-token {
   flex: 1;
-  flex-basis: var(--color-token-width, 45ch);
+  flex-basis: var(--color-token-width);
 }
 </style>
 `;

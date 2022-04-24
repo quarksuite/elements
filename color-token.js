@@ -106,6 +106,7 @@ ${format !== "none" ? this.assigned() : ``}
     --color-border-width: 0.25ex;
     --color-radius: 100%;
     --code-family: monospace;
+    --code-font-size: 1rem;
     --data-width: 32ch;
 
     display: flex;

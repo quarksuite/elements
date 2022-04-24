@@ -46,9 +46,11 @@ export class ColorDictionary extends HTMLElement {
             return tree(head.concat(key, "."), value);
           }
 
-          return `<li class="token"><color-token as="${head.concat(
-            key
-          )}" color="${value}" format="none"></color-token></li>`;
+          return `<li class="token"><color-token as="${
+            head.concat(
+              key,
+            )
+          }" color="${value}" format="none"></color-token></li>`;
         })
         .join("\n");
 
@@ -77,6 +79,9 @@ ${this.styles()}
 <style>
   :host {
     --spacing: 2ex;
+    --category-border-style: dashed;
+    --token-width: 45ch;
+
     display: block;
   }
 
@@ -93,13 +98,13 @@ ${this.styles()}
     display: flex;
     flex-flow: row wrap;
     gap: var(--spacing);
-    border: calc(var(--spacing) / 8) var(--category-border-style, dashed) currentcolor;
+    border: calc(var(--spacing) / 8) var(--category-border-style) currentcolor;
     margin-bottom: var(--spacing);
     padding: var(--spacing);
   }
 
   .token {
-    flex-basis: var(--token-width, 45ch);
+    flex-basis: var(--token-width);
   }
 </style>
 `;
