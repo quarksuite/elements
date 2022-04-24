@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="module" src="./color-token.js"></script>
+    <script type="module" src="./color-scale.js"></script>
+    <script type="module" src="./color-dictionary.js"></script>
+    <script type="module" src="./script.js"></script>
+    <title>QuarkSuite v2 Elements Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Titillium+Web:wght@400;700&family=Work+Sans:ital,wght@0,100;0,500;0,700;0,900;1,300&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        font-family: Titillium Web, sans-serif;
+      }
+
+      .examples {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 1ex;
+      }
+
+      color-token,
+      color-scale {
+        --code-family: Space Mono, monospace;
+        flex: 1;
+      }
+
+      color-scale {
+        flex-basis: 40%;
+      }
+
+      color-dictionary {
+        flex-basis: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header role="header">
+      <h1>QuarkSuite v2 Elements Workspace</h1>
+    </header>
+    <main role="main">
+      <section class="workspace">
+        <h2>Token</h2>
+        <section class="element">
+          <h3>&lt;color-token&gt;</h3>
+          <div class="examples">
+            <color-token></color-token>
+            <color-token as="main" color="rgb(240, 10, 20)"></color-token>
+            <color-token as="accent" color="rgb(30, 240, 80)"></color-token>
+            <color-token as="highlight" color="rgb(20, 75, 240)"></color-token>
+          </div>
+        </section>
+        <h2>Scale</h2>
+        <section class="element">
+          <h3>&lt;color-scale&gt;</h3>
+          <div class="examples">
+            <color-scale></color-scale>
+            <color-scale as="scale" colors="red lime blue"></color-scale>
+            <color-scale
+              as="main accent highlight"
+              colors="crimson chartreuse dodgerblue"
+            ></color-scale>
+            <color-scale
+              as="main accent highlight"
+              colors="#d0346c #7fcf80 #1e90df"
+              format="hex rgb hsl"
+            ></color-scale>
+          </div>
+        </section>
+        <h2>Dictionary</h2>
+        <section class="element">
+          <h3>&lt;color-dictionary&gt;</h3>
+          <div class="examples">
+            <color-dictionary></color-dictionary>
+            <color-dictionary as="sample dict"></color-dictionary>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
