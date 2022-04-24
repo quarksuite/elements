@@ -72,7 +72,7 @@ ${
       this.assign(colors)
         .map(
           ([as, color]) =>
-            `<color-token as="${as}" color="${color}" format="${format}"></color-token>`,
+            `<color-token as="${as}" color="${color}" format="${format}" part="color"></color-token>`,
         )
         .join("\n")
     }
@@ -85,30 +85,28 @@ ${
     return `
 <style>
 :host {
-
-  // Own
   --spacing: 1ex;
-  --color-token-width: 45ch;
+  --swatch-size: 10vh;
+  --swatch-border-width: 0.25ex;
+  --data-size: 1rem;
 
-  display: flex;
-  flex-flow: row wrap;
-  gap: var(--spacing);
+  --color-spacing: var(--spacing);
+  --color-swatch-size: var(--swatch-size);
+  --color-swatch-border-width: var(--swatch-border-width);
+  --color-data-size: var(--data-size);
+
+  display: block;
 }
 
 :host[hidden] {
   display: none;
 }
 
-color-token {
-  --spacing: 1ex;
-  --color-size: 8vh;
-  --color-border-width: 0.25ex;
-  --color-radius: 100%;
-  --code-family: monospace;
-  --code-font-size: 1rem;
-  --data-width: 32ch;
-  flex: 1;
-  flex-basis: var(--color-token-width);
+[part="color"] {
+  --spacing: var(--color-spacing);
+  --swatch-size: var(--color-swatch-size);
+  --swatch-border-width: var(--color-swatch-border-width);
+  --data-size: var(--color-data-size);
 }
 </style>
 `;
