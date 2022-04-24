@@ -36,7 +36,7 @@ export class ColorDictionary extends HTMLElement {
         .map(([key, value]) => {
           if (value.hasOwnProperty("bg")) {
             return `
-<div class="category">
+<div part="category">
   ${tree(head.concat(key, "."), value)}
 </div>
 `;
@@ -46,7 +46,7 @@ export class ColorDictionary extends HTMLElement {
             return tree(head.concat(key, "."), value);
           }
 
-          return `<li class="token"><color-token as="${
+          return `<li part="token"><color-token part="color" as="${
             head.concat(
               key,
             )
@@ -54,7 +54,7 @@ export class ColorDictionary extends HTMLElement {
         })
         .join("\n");
 
-    return `<ul class="dict">${tree("", data)}</ul>`;
+    return `<ul part="group">${tree("", data)}</ul>`;
   }
 
   template() {
@@ -77,35 +77,51 @@ ${this.styles()}
   styles() {
     return `
 <style>
-  :host {
-    --spacing: 2ex;
-    --category-border-style: dashed;
-    --token-width: 45ch;
+:host {
+  --spacing: 2ex;
+  --swatch-size: 10vh;
+  --swatch-border-width: 0.25ex;
+  --data-size: 1rem;
 
-    display: block;
-  }
+  --token-width: 32ch;
 
-  :host[hidden] {
-    display: none;
-  }
+  --color-spacing: var(--spacing);
+  --color-swatch-size: var(--swatch-size);
+  --color-swatch-border-width: var(--swatch-border-width);
+  --color-data-size: var(--data-size);
 
-  .dict {
-    list-style: none;
-    padding: 0;
-  }
+  display: block;
+}
 
-  .category {
-    display: flex;
-    flex-flow: row wrap;
-    gap: var(--spacing);
-    border: calc(var(--spacing) / 8) var(--category-border-style) currentcolor;
-    margin-bottom: var(--spacing);
-    padding: var(--spacing);
-  }
+:host[hidden] {
+  display: none;
+}
 
-  .token {
-    flex-basis: var(--token-width);
-  }
+[part="group"] {
+  list-style: none;
+  padding-left: 0;
+}
+
+[part="category"] {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--spacing);
+  border: calc(var(--spacing) / 8) dashed currentcolor;
+  margin-bottom: var(--spacing);
+  padding: var(--spacing);
+}
+
+[part="token"] {
+  flex: 1;
+  flex-basis: var(--token-width);
+}
+
+[part="color"] {
+  --spacing: var(--color-spacing);
+  --swatch-size: var(--color-swatch-size);
+  --swatch-border-width: var(--color-swatch-border-width);
+  --data-size: var(--color-data-size);
+}
 </style>
 `;
   }
