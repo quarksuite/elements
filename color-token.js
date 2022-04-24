@@ -14,7 +14,7 @@ class ColorToken extends HTMLElement {
     this.shadow = this.attachShadow({ mode: "open" });
   }
 
-  #as = " ";
+  #as = "n/a";
   #color = "#808080";
   #format = "hex";
 
@@ -61,9 +61,9 @@ class ColorToken extends HTMLElement {
 
     return splitFormats
       .map((format) => {
-        return `<span class="value ${
-          this.color === convert(format, color) && "actual"
-        }">${format}: <code>${convert(format, color)}</code></span>`;
+        return `<span part="value">${format}: <code part="code ${
+          color === convert(format, color) && `actual`
+        }">${convert(format, color)}</code></span>`;
       })
       .join("");
   }
@@ -72,7 +72,7 @@ class ColorToken extends HTMLElement {
   assigned() {
     const as = this.as || this.#as;
 
-    return `<span class="as">${as}</span>`;
+    return `<span part="label">${as}</span>`;
   }
 
   template() {
@@ -84,13 +84,13 @@ class ColorToken extends HTMLElement {
     tmpl.innerHTML = `
 ${this.styles(color)}
 ${format !== "none" ? this.assigned() : ``}
-  <div class="color"></div>
-  <div class="data">
+  <div part="swatch"></div>
+  <div part="data">
   ${
-    format !== "none"
-      ? this.formats()
-      : `<span class="value" style="text-transform: lowercase;">${as} (<code>${this.color}</code>)</span>`
-  }
+      format !== "none"
+        ? this.formats()
+        : `<span part="value" style="text-transform: lowercase;">${as} (<code part="code">${this.color}</code>)</span>`
+    }
 </div>
 `;
 
@@ -101,60 +101,40 @@ ${format !== "none" ? this.assigned() : ``}
     return `
 <style>
   :host {
-    --spacing: 1ex;
-    --color-size: 8vh;
-    --color-border-width: 0.25ex;
-    --color-radius: 100%;
-    --code-family: monospace;
-    --code-font-size: 1rem;
-    --data-width: 32ch;
+    display: block;
 
-    display: flex;
-    flex-flow: row wrap;
-    gap: var(--spacing);
+    --spacing: 1ex;
+    --swatch-size: 10vh;
+    --swatch-border-width: 0.25ex;
+    --data-size: 1rem;
   }
 
   :host[hidden] {
     display: none;
   }
 
-  span {
-    text-transform: uppercase;
+  [part="label"] {
+    display: block;
+    margin-bottom: var(--spacing);
   }
 
-  code {
-    display: inline;
-    font-family: var(--code-family);
-    font-size: var(--code-font-size);
-    text-transform: lowercase;
-  }
-
-  .as {
-    flex-basis: 100%;
-  }
-
-  .color {
+  [part="swatch"] {
     background: ${convert("hex", color)};
-    border: var(--color-border-width) solid ${adjust(
-      { lightness: -25 },
-      color
-    )};
-    border-radius: var(--color-radius);
-    min-width: var(--color-size);
-    min-height: var(--color-size);
+    min-width: var(--swatch-size);
+    min-height: var(--swatch-size);
   }
 
-  .data {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    gap: calc(var(--spacing) / 2);
-    flex: 1;
-    flex-basis: var(--data-width);
-    font-size: inherit;
+  [part="data"] {
+    font-size: var(--data-size);
+    margin-top: calc(var(--spacing) / 2);
   }
 
-  .value.actual {
+  [part="value"] {
+    display: block;
+    margin-bottom: calc(var(--spacing) / 4);
+  }
+
+  [part~="actual"] {
     font-weight: 700;
   }
 </style>
