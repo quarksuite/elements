@@ -68,6 +68,9 @@ class ColorToken extends HTMLElement {
   // Assignment
   assigned() {
     const as = this.as || this.#as;
+    const color = this.color || this.#color;
+
+    this.token = as === "n/a" ? color : { [as]: color };
 
     return `<span part="label">${as}</span>`;
   }
@@ -84,10 +87,10 @@ ${format !== "none" ? this.assigned() : ``}
   <div part="swatch"></div>
   <div part="data">
   ${
-      format !== "none"
-        ? this.formats()
-        : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${this.color}</code></span>`
-    }
+    format !== "none"
+      ? this.formats()
+      : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`
+  }
 </div>
 `;
 
