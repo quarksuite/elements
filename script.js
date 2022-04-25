@@ -1,12 +1,14 @@
 import color from "./config/color.js";
 
+// Functional DOM helpers
+import { add, after, element, set } from "./dom.js";
+
 const dict = {
   color: color("#7ea"),
 };
 
-const uiDict = document.querySelector("color-dictionary[as]");
+after(element("updated"), add({ as: "created", color: "aqua" }, "color-token"));
 
-uiDict.data = { color: dict.color };
+set({ color: "chartreuse" }, element("updated"));
 
-uiDict.shadowRoot.textContent = "";
-uiDict.parentNode.replaceChild(uiDict, uiDict);
+set({ data: dict.color }, element("sample"));

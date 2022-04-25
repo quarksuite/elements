@@ -60,6 +60,7 @@
               color="rgb(20, 75, 240)"
               format="hex rgb hsl"
             ></color-token>
+            <color-token as="updated"></color-token>
           </div>
         </section>
         <h2>Scale</h2>
@@ -68,11 +69,11 @@
           <div class="examples">
             <color-scale></color-scale>
             <color-scale as="swatches" format="hex rgb hsl">
-              <color-token color="black"></color-token>
-              <color-token color="aquamarine"></color-token>
-              <color-token color="papayawhip"></color-token>
+              <color-token as="main" color="black"></color-token>
+              <color-token as="aqua" color="aquamarine"></color-token>
+              <color-token as="wumbo" color="papayawhip"></color-token>
             </color-scale>
-            <color-scale as="generated"></color-scale>
+            <color-scale as="generated" format="hex hsl hwb"></color-scale>
           </div>
         </section>
         <h2>Dictionary</h2>
@@ -80,7 +81,7 @@
           <h3>&lt;color-dictionary&gt;</h3>
           <div class="examples">
             <color-dictionary></color-dictionary>
-            <color-dictionary as="sample dict"></color-dictionary>
+            <color-dictionary as="sample"></color-dictionary>
           </div>
         </section>
       </section>
