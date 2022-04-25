@@ -22,7 +22,11 @@ export function element(identifier) {
 
 export function set(properties, el) {
   Object.entries(properties).forEach(([key, value]) => {
-    el.setAttribute(key, value);
+    if (el.hasAttribute(key)) {
+      el.setAttribute(key, value);
+    }
+
+    el[key] = value;
   });
 
   el.shadowRoot.replaceChildren();
@@ -31,7 +35,11 @@ export function set(properties, el) {
 
 export function unset(properties, el) {
   properties.forEach((key) => {
-    el.removeAttribute(key);
+    if (el.hasAttribute(key)) {
+      el.removeAttribute(key);
+    }
+
+    delete el[key];
   });
 
   el.shadowRoot.replaceChildren();
