@@ -3,14 +3,12 @@ class ColorScale extends HTMLElement {
     super();
 
     this.as = this.as;
-    this.colors = this.colors;
     this.format = this.format;
 
     this.shadow = this.attachShadow({ mode: "open" });
   }
 
   #as = "";
-  #colors = "white | gray | black";
   #format = "hex";
 
   set as(value) {
@@ -19,14 +17,6 @@ class ColorScale extends HTMLElement {
 
   get as() {
     return this.getAttribute("as");
-  }
-
-  set colors(value) {
-    this.reflect("colors", value);
-  }
-
-  get colors() {
-    return this.getAttribute("colors");
   }
 
   set format(value) {
@@ -46,43 +36,20 @@ class ColorScale extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["as", "colors", "format"];
+    return ["as", "format"];
   }
 
   // Assignment behavior
-  assign(colors) {
-    const as = this.as || this.#as;
-    const delim = " | ";
-    const targets = as && as.split(delim);
-
-    return as.split(delim).length > 1
-      ? targets.map((as, pos) => [as, colors.split(delim)[pos]])
-      : colors
-        .split(delim)
-        .map((color, pos) => [as && [as, pos].join("."), color]);
-  }
+  assign() {}
 
   template() {
-    const colors = this.colors || this.#colors;
-    const format = this.format || this.#format;
     const tmpl = document.createElement("template");
 
     tmpl.innerHTML = `
+<style>
 ${this.styles()}
-${
-      this.assign(colors)
-        .map(
-          ([as, color]) =>
-            `<color-token as="${as}" color="${color}" format="${format}" part="color" exportparts="
-label: color-label,
-swatch: color-swatch,
-data: color-data,
-value: color-value,
-code: color-code,
-actual: color-actual"></color-token>`,
-        )
-        .join("\n")
-    }
+</style>
+<slot>No &lt;color-token&gt; elements slotted in "${this.as || ""}"</slot>
 `;
 
     return tmpl.content.cloneNode(true);
@@ -90,7 +57,6 @@ actual: color-actual"></color-token>`,
 
   styles() {
     return `
-<style>
 :host {
   --spacing: 1ex;
   --swatch-size: 10vh;
@@ -109,22 +75,44 @@ actual: color-actual"></color-token>`,
   display: none;
 }
 
-[part="color"] {
+::slotted(color-token) {
   --spacing: var(--color-spacing);
   --swatch-size: var(--color-swatch-size);
   --swatch-border-width: var(--color-swatch-border-width);
   --data-size: var(--color-data-size);
 }
-</style>
 `;
   }
 
-  render() {
-    return this.shadow.append(this.template());
+  render(...els) {
+    return this.shadow.append(...els);
   }
 
   connectedCallback() {
-    this.render();
+    const slotted = Array.from(this.children);
+
+    slotted.forEach((el) => {
+      const root = el.shadowRoot;
+
+      el.format = this.format;
+      el.part = "color";
+      el.setAttribute(
+        "exportparts",
+        `label: color-label, swatch: color-swatch, data: color-data, value: color-value, code: color-code, actual: color-actual`
+      );
+
+      el.style.setProperty("--spacing", "var(--color-spacing)");
+      el.style.setProperty("--swatch-size", "var(--color-swatch-size)");
+      el.style.setProperty(
+        "--swatch-border-width",
+        "var(--color-swatch-border-width)"
+      );
+      el.style.setProperty("--data-size", "var(--color-data-size)");
+
+      while (root.firstChild && root.removeChild(root.firstChild));
+    });
+
+    this.render(this.template(), ...slotted);
   }
 }
 

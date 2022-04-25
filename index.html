@@ -67,20 +67,12 @@
           <h3>&lt;color-scale&gt;</h3>
           <div class="examples">
             <color-scale></color-scale>
-            <color-scale
-              as="main | accent | highlight"
-              colors="crimson | chartreuse | dodgerblue"
-            ></color-scale>
-            <color-scale
-              as="main | accent | highlight"
-              colors="#d0346c | #7fcf80 | #1e90df"
-              format="hex"
-            ></color-scale>
-            <color-scale
-              as="swatches"
-              colors="rgb(219, 50, 123) | rgb(143, 175, 0) | rgb(0, 169, 255)"
-              format="rgb"
-            ></color-scale>
+            <color-scale as="swatches" format="hex rgb hsl">
+              <color-token color="black"></color-token>
+              <color-token color="aquamarine"></color-token>
+              <color-token color="papayawhip"></color-token>
+            </color-scale>
+            <color-scale as="generated"></color-scale>
           </div>
         </section>
         <h2>Dictionary</h2>
