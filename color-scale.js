@@ -10,7 +10,7 @@ class ColorScale extends HTMLElement {
   }
 
   #as = "";
-  #colors = "white gray black";
+  #colors = "white | gray | black";
   #format = "hex";
 
   set as(value) {
@@ -52,12 +52,13 @@ class ColorScale extends HTMLElement {
   // Assignment behavior
   assign(colors) {
     const as = this.as || this.#as;
-    const targets = as && as.split(" ");
+    const delim = " | ";
+    const targets = as && as.split(delim);
 
-    return as.split(" ").length > 1
-      ? targets.map((as, pos) => [as, colors.split(" ")[pos]])
+    return as.split(delim).length > 1
+      ? targets.map((as, pos) => [as, colors.split(delim)[pos]])
       : colors
-        .split(" ")
+        .split(delim)
         .map((color, pos) => [as && [as, pos].join("."), color]);
   }
 

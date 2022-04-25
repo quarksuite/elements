@@ -1,7 +1,4 @@
-import {
-  adjust,
-  convert,
-} from "https://cdn.jsdelivr.net/gh/quarksuite/core@2.0.0-20/color.js";
+import { convert } from "https://cdn.jsdelivr.net/gh/quarksuite/core@2.0.0-20/color.js";
 
 class ColorToken extends HTMLElement {
   constructor() {
