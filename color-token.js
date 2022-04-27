@@ -11,7 +11,7 @@ class ColorToken extends HTMLElement {
     this.shadow = this.attachShadow({ mode: "open" });
   }
 
-  #as = "n/a";
+  #as = "unassigned";
   #color = "#808080";
   #format = "hex";
 
@@ -53,44 +53,43 @@ class ColorToken extends HTMLElement {
 
   // Formatting
   formats() {
+    const as = this.as || this.#as;
     const color = this.color || this.#color;
-    const splitFormats = (this.format || this.#format).split(" ");
+    const format = this.format || this.#format;
 
-    return splitFormats
-      .map((format) => {
-        return `<span part="value">${format}: <code part="code ${
-          color === convert(format, color) && `actual`
-        }">${convert(format, color)}</code></span>`;
-      })
-      .join("");
+    return format !== "none"
+      ? format
+        .split(" ")
+        .map((format) => {
+          return `<span part="value">${format}: <code part="code ${
+            color === convert(format, color) && `actual`
+          }">${convert(format, color)}</code></span>`;
+        })
+        .join("")
+      : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`;
   }
 
   // Assignment
   assigned() {
     const as = this.as || this.#as;
     const color = this.color || this.#color;
+    const format = this.format || this.#format;
 
-    this.token = as === "n/a" ? color : { [as]: color };
+    this.token = { [as]: color };
 
-    return `<span part="label">${as}</span>`;
+    return format !== "none" ? `<span part="label">${as}</span>` : ``;
   }
 
   template() {
-    const as = this.as || this.#as;
     const color = this.color || this.#color;
-    const format = this.format || this.#format;
     const tmpl = document.createElement("template");
 
     tmpl.innerHTML = `
 ${this.styles(color)}
-${format !== "none" ? this.assigned() : ``}
-  <div part="swatch"></div>
-  <div part="data">
-  ${
-    format !== "none"
-      ? this.formats()
-      : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`
-  }
+${this.assigned()}
+<div part="swatch"></div>
+<div part="data">
+${this.formats()}
 </div>
 `;
 
