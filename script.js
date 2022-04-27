@@ -7,4 +7,4 @@ const dict = {
   color: color("#7ea"),
 };
 
-set({ data: dict.color }, element("sample"));
+set({ dictionary: dict.color }, element("sample"));

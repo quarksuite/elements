@@ -8,6 +8,7 @@ export class ColorDictionary extends HTMLElement {
   }
 
   #as = "";
+  #dictionary = {};
 
   set as(value) {
     this.reflect("as", value);
@@ -62,14 +63,14 @@ code: color-code" as="${
 
   template() {
     const as = this.as || this.#as;
-    const data = this.data || {};
+    const dictionary = this.dictionary || this.#dictionary;
     const tmpl = document.createElement("template");
 
     tmpl.innerHTML = `
 ${this.styles()}
     ${
-      Object.keys(data).length
-        ? this.assemble(data)
+      Object.keys(dictionary).length
+        ? this.assemble(dictionary)
         : `<div class="pending">A color dictionary is not currently assigned to <code>"${as}"</code></div>`
     }
     `;
