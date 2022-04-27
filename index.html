@@ -30,11 +30,11 @@
       }
 
       color-token {
-      flex-basis: 32ch;
+        flex-basis: 32ch;
       }
 
       color-scale {
-      flex-basis: 45ch;
+        flex-basis: 45ch;
       }
 
       color-dictionary {
@@ -52,44 +52,40 @@
         <section class="element">
           <h3>&lt;color-token&gt;</h3>
           <div class="examples">
-            <color-token></color-token>
             <color-token
-              as="main"
-              color="rgb(240, 10, 20)"
+              as="spring"
+              color="#f00aa0"
               format="hex rgb hsl"
             ></color-token>
             <color-token
-              as="accent"
-              color="rgb(30, 240, 80)"
+              as="summer"
+              color="#f5e10a"
               format="hex rgb hsl"
             ></color-token>
             <color-token
-              as="highlight"
-              color="rgb(20, 75, 240)"
+              as="fall"
+              color="#f49f0a"
               format="hex rgb hsl"
             ></color-token>
-            <color-token as="updated"></color-token>
+            <color-token
+              as="winter"
+              color="#1e0af5"
+              format="hex rgb hsl"
+            ></color-token>
           </div>
         </section>
         <h2>Scale</h2>
         <section class="element">
           <h3>&lt;color-scale&gt;</h3>
           <div class="examples">
-            <color-scale><color-token></color-token></color-scale>
-            <color-scale as="swatches" format="hex rgb hsl">
-              <color-token as="main" color="black"></color-token>
-              <color-token as="aqua" color="aquamarine"></color-token>
-              <color-token as="wumbo" color="indigo"></color-token>
-            </color-scale>
-            <color-scale as="generated" format="hex hsl hwb"></color-scale>
+            <color-scale as="seasons" format="hex hsl hwb"></color-scale>
           </div>
         </section>
         <h2>Dictionary</h2>
         <section class="element">
           <h3>&lt;color-dictionary&gt;</h3>
           <div class="examples">
-            <color-dictionary></color-dictionary>
-            <color-dictionary as="sample"></color-dictionary>
+            <color-dictionary as="color"></color-dictionary>
           </div>
         </section>
       </section>
