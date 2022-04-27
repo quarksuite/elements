@@ -29,8 +29,7 @@ export function set(properties, el) {
     el[key] = value;
   });
 
-  el.shadowRoot.replaceChildren();
-  el.replaceWith(el);
+  update(el);
 }
 
 export function unset(properties, el) {
@@ -42,8 +41,30 @@ export function unset(properties, el) {
     delete el[key];
   });
 
-  el.shadowRoot.replaceChildren();
-  el.replaceWith(el);
+  update(el);
+}
+
+export function move(target, ...els) {
+  els.forEach((el) => target.append(el));
+
+  update(target);
+
+  Array.from(target.children).forEach((el) => update(element(el.as)));
+}
+
+export function copy(target, ...els) {
+  els.forEach((el) => target.append(el.cloneNode(true)));
+
+  update(target);
+
+  Array.from(target.children).forEach((el) => update(element(el.as)));
+}
+
+export function update(...els) {
+  els.forEach((el) => {
+    el.shadowRoot.replaceChildren();
+    el.replaceWith(el);
+  });
 }
 
 export function remove(...els) {

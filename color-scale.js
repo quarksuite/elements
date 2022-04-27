@@ -8,8 +8,8 @@ class ColorScale extends HTMLElement {
     this.shadow = this.attachShadow({ mode: "open" });
   }
 
-  #as = "";
-  #format = "hex";
+  #as = "color";
+  #format = "hex rgb hsl";
 
   set as(value) {
     this.reflect("as", value);
@@ -84,35 +84,48 @@ ${this.styles()}
 `;
   }
 
-  render(...els) {
-    return this.shadow.append(...els);
+  render() {
+    return this.shadow.append(this.template());
   }
 
   connectedCallback() {
-    const slotted = Array.from(this.children);
+    const as = this.as || this.#as;
+    const format = this.format || this.#format;
 
-    slotted.forEach((el) => {
-      const root = el.shadowRoot;
+    this.render();
 
-      el.format = this.format;
-      el.part = "color";
-      el.setAttribute(
-        "exportparts",
-        `label: color-label, swatch: color-swatch, data: color-data, value: color-value, code: color-code, actual: color-actual`
-      );
+    const tokens = Array.from(
+      this.shadowRoot.querySelector("slot").assignedElements(),
+    );
 
-      el.style.setProperty("--spacing", "var(--color-spacing)");
-      el.style.setProperty("--swatch-size", "var(--color-swatch-size)");
-      el.style.setProperty(
-        "--swatch-border-width",
-        "var(--color-swatch-border-width)"
-      );
-      el.style.setProperty("--data-size", "var(--color-data-size)");
+    this.scale = [];
 
-      while (root.firstChild && root.removeChild(root.firstChild));
+    tokens.forEach((el, pos) => {
+      const assignment = [as, el.as ? el.as : pos];
+
+      el.as = assignment.join(".");
+      el.format = format;
+
+      const [, identifier] = el.as.split(".");
+      const [color] = Object.values(el.token);
+
+      this.scale = [...this.scale, { [identifier]: color }];
+
+      el.shadowRoot.replaceChildren();
+      el.replaceWith(el);
     });
 
-    this.render(this.template(), ...slotted);
+    this.scale = {
+      [as]: {
+        ...this.scale.reduce(
+          (acc, token) => ({
+            ...acc,
+            ...token,
+          }),
+          {},
+        ),
+      },
+    };
   }
 }
 

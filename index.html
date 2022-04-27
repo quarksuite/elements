@@ -29,6 +29,14 @@
         flex: 1;
       }
 
+      color-token {
+      flex-basis: 32ch;
+      }
+
+      color-scale {
+      flex-basis: 45ch;
+      }
+
       color-dictionary {
         flex-basis: 100%;
       }
@@ -67,11 +75,11 @@
         <section class="element">
           <h3>&lt;color-scale&gt;</h3>
           <div class="examples">
-            <color-scale></color-scale>
+            <color-scale><color-token></color-token></color-scale>
             <color-scale as="swatches" format="hex rgb hsl">
               <color-token as="main" color="black"></color-token>
               <color-token as="aqua" color="aquamarine"></color-token>
-              <color-token as="wumbo" color="papayawhip"></color-token>
+              <color-token as="wumbo" color="indigo"></color-token>
             </color-scale>
             <color-scale as="generated" format="hex hsl hwb"></color-scale>
           </div>

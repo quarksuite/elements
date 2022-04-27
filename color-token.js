@@ -13,7 +13,7 @@ class ColorToken extends HTMLElement {
 
   #as = "unassigned";
   #color = "#808080";
-  #format = "hex";
+  #format = "hex rgb hsl";
 
   set as(value) {
     this.reflect("as", value);
