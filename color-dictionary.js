@@ -35,7 +35,10 @@ export class ColorDictionary extends HTMLElement {
     const tree = (head, node) =>
       Object.entries(node)
         .map(([key, value]) => {
-          if (value.hasOwnProperty("bg")) {
+          if (
+            typeof value === "object" &&
+            Object.values(value).some((v) => typeof v === "string")
+          ) {
             return `
 <div part="category">
   ${tree(head.concat(key, "."), value)}
@@ -115,6 +118,16 @@ ${this.styles()}
   padding: var(--spacing);
 }
 
+[part="category"] > [part="category"] {
+  flex: 1;
+  flex-basis: 100%;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 [part="token"] {
   flex: 1;
   flex-basis: var(--token-width);
@@ -125,6 +138,7 @@ ${this.styles()}
   --swatch-size: var(--color-swatch-size);
   --swatch-border-width: var(--color-swatch-border-width);
   --data-size: var(--color-data-size);
+  flex: 1;
 }
 </style>
 `;
