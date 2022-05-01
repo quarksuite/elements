@@ -1,4 +1,4 @@
-import { convert } from "https://cdn.jsdelivr.net/gh/quarksuite/core@2.0.0-20/color.js";
+import { convert } from "https://cdn.jsdelivr.net/gh/quarksuite/core@2.0.0-26/color.js";
 
 class ColorToken extends HTMLElement {
   constructor() {
@@ -59,13 +59,13 @@ class ColorToken extends HTMLElement {
 
     return format !== "none"
       ? format
-        .split(" ")
-        .map((format) => {
-          return `<span part="value">${format}: <code part="code ${
-            color === convert(format, color) && `actual`
-          }">${convert(format, color)}</code></span>`;
-        })
-        .join("")
+          .split(" ")
+          .map((format) => {
+            return `<span part="value">${format}: <code part="code ${
+              color === convert(format, color) && `actual`
+            }">${convert(format, color)}</code></span>`;
+          })
+          .join("")
       : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`;
   }
 

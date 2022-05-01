@@ -43,13 +43,14 @@ class ColorScale extends HTMLElement {
   assign() {}
 
   template() {
+    const as = this.as || this.#as;
     const tmpl = document.createElement("template");
 
     tmpl.innerHTML = `
 <style>
 ${this.styles()}
 </style>
-<slot>No &lt;color-token&gt; elements slotted in "${this.as || ""}"</slot>
+<slot>No &lt;color-token&gt; elements slotted in <code>"${as}"</code></slot>
 `;
 
     return tmpl.content.cloneNode(true);
