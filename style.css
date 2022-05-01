@@ -1,0 +1,39 @@
+:root {
+  font-family: Titillium Web, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+*:after {
+  box-sizing: border-box;
+}
+
+.examples {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1ex;
+}
+
+color-token,
+color-scale {
+  flex: 1;
+}
+
+color-token {
+  flex-basis: 32ch;
+}
+
+color-scale {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--spacing);
+}
+
+color-scale > color-token {
+  flex-basis: 75ch;
+}
+
+color-dictionary {
+  flex-basis: 100%;
+}
