@@ -69,14 +69,14 @@ export class ColorToken extends HTMLElement {
 
     return format !== "none"
       ? format
-      .split(" ")
-      .map((format) => {
-        return `<span part="value">${format}: <code part="code ${
-              color === convert(format, color) && `actual`
-            }">${convert(format, color)}</code></span>`;
-          })
-      .join("")
-    : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`;
+        .split(" ")
+        .map((format) => {
+          return `<span part="value">${format}: <code part="code ${
+            color === convert(format, color) && `actual`
+          }">${convert(format, color)}</code></span>`;
+        })
+        .join("")
+      : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`;
   }
 
   // Assignment
@@ -100,18 +100,19 @@ export class ColorToken extends HTMLElement {
       const target = document.querySelector(`[as="${scale}"]`);
 
       // A scale reference will only ever be a numbered index or direct assignment
-      this.setAttribute(
-        "color",
-        Array.from(target.children)
-          .find((el, i) => Number(value) === i || el.as === value)
-          .getAttribute("color")
-      );
+      this.reference = Array.from(target.children)
+        .find((el, i) => Number(value) === i || el.as === value)
+        .getAttribute("color");
     } else {
-      // Reference is a direct assignment
       const target = document.querySelector(`[as="${this.from}"]`);
+
+      // Reference is a direct assignment
+      this.reference = target.getAttribute("color");
 
       this.setAttribute("color", target.getAttribute("color"));
     }
+
+    this.color = this.reference;
   }
 
   template() {
