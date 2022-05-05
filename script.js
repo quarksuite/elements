@@ -1,24 +1,16 @@
 import color from "./config/color.js";
 
 // Functional DOM helpers
-import { copy, element, set } from "./dom.js";
-
-copy(
-  element("seasons"),
-  element("spring"),
-  element("summer"),
-  element("fall"),
-  element("winter"),
-);
+import { element, set } from "./dom.js";
 
 set(
   {
     dictionary: {
       color: {
-        spring: color(element("spring").color),
-        summer: color(element("summer").color),
-        fall: color(element("fall").color),
-        winter: color(element("winter").color),
+        spring: color(element("seasons.0").color),
+        summer: color(element("seasons.1").color),
+        fall: color(element("seasons.2").color),
+        winter: color(element("seasons.3").color),
       },
     },
   },

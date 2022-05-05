@@ -1,10 +1,11 @@
 import { convert } from "https://cdn.jsdelivr.net/gh/quarksuite/core@2.0.0-26/color.js";
 
-class ColorToken extends HTMLElement {
+export class ColorToken extends HTMLElement {
   constructor() {
     super();
 
     this.as = this.as;
+    this.from = this.from;
     this.color = this.color;
     this.format = this.format;
 
@@ -12,6 +13,7 @@ class ColorToken extends HTMLElement {
   }
 
   #as = "unassigned";
+  #from = "";
   #color = "#808080";
   #format = "hex rgb hsl";
 
@@ -21,6 +23,14 @@ class ColorToken extends HTMLElement {
 
   get as() {
     return this.getAttribute("as");
+  }
+
+  set from(value) {
+    this.reflect("from", value);
+  }
+
+  get from() {
+    return this.getAttribute("from");
   }
 
   set color(value) {
@@ -48,7 +58,7 @@ class ColorToken extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["as", "color", "format"];
+    return ["as", "from", "color", "format"];
   }
 
   // Formatting
@@ -59,14 +69,14 @@ class ColorToken extends HTMLElement {
 
     return format !== "none"
       ? format
-          .split(" ")
-          .map((format) => {
-            return `<span part="value">${format}: <code part="code ${
+      .split(" ")
+      .map((format) => {
+        return `<span part="value">${format}: <code part="code ${
               color === convert(format, color) && `actual`
             }">${convert(format, color)}</code></span>`;
           })
-          .join("")
-      : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`;
+      .join("")
+    : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`;
   }
 
   // Assignment
@@ -78,6 +88,30 @@ class ColorToken extends HTMLElement {
     this.token = { [as]: color };
 
     return format !== "none" ? `<span part="label">${as}</span>` : ``;
+  }
+
+  // Referencing
+  referenced() {
+    let ref = "";
+
+    // Reference is a color scale value
+    if (this.from.split(".").length > 1) {
+      const [scale, value] = this.from.split(".");
+      const target = document.querySelector(`[as="${scale}"]`);
+
+      // A scale reference will only ever be a numbered index or direct assignment
+      this.setAttribute(
+        "color",
+        Array.from(target.children)
+          .find((el, i) => Number(value) === i || el.as === value)
+          .getAttribute("color")
+      );
+    } else {
+      // Reference is a direct assignment
+      const target = document.querySelector(`[as="${this.from}"]`);
+
+      this.setAttribute("color", target.getAttribute("color"));
+    }
   }
 
   template() {
@@ -145,6 +179,9 @@ ${this.formats()}
   }
 
   connectedCallback() {
+    if (this.from) {
+      this.referenced();
+    }
     this.render();
   }
 }

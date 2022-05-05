@@ -104,10 +104,10 @@ ${this.styles()}
     tokens.forEach((el, pos) => {
       const assignment = [as, el.as ? el.as : pos];
 
-      el.as = assignment.join(".");
-      el.format = format;
+      el.setAttribute("as", assignment.join("."));
+      el.setAttribute("format", format);
 
-      const [, identifier] = el.as.split(".");
+      const [, identifier] = el.getAttribute("as").split(".");
       const [color] = Object.values(el.token);
 
       this.scale = [...this.scale, { [identifier]: color }];
