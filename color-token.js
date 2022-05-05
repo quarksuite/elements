@@ -92,8 +92,6 @@ export class ColorToken extends HTMLElement {
 
   // Referencing
   referenced() {
-    let ref = "";
-
     // Reference is a color scale value
     if (this.from.split(".").length > 1) {
       const [scale, value] = this.from.split(".");
@@ -108,8 +106,6 @@ export class ColorToken extends HTMLElement {
 
       // Reference is a direct assignment
       this.reference = target.getAttribute("color");
-
-      this.setAttribute("color", target.getAttribute("color"));
     }
 
     this.color = this.reference;
