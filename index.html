@@ -3,60 +3,63 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script type="module" src="./mod.js"></script>
-    <script type="module" src="./script.js"></script>
-    <title>QuarkSuite v2 Elements Workspace</title>
+    <script type="module" src="./color-token.js"></script>
+    <title>QuarkSuite Elements Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,400;0,700;0,900;1,400&display=swap"
+      rel="stylesheet"
+      />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <header role="header">
-      <h1>QuarkSuite v2 Elements Workspace</h1>
+      <h1>QuarkSuite Elements Workspace</h1>
     </header>
     <main role="main">
       <section class="workspace">
-        <h2>Token</h2>
         <section class="element">
-          <h3>&lt;color-token&gt;</h3>
+          <h2>&lt;color-token&gt;</h2>
           <div class="examples">
+            <color-token color="#39aac0" format="hex rgb hsl"></color-token>
             <color-token
-              as="spring"
-              color="#f00aa0"
-              format="hex rgb hsl"
+              color="rgb(57, 220, 192)"
+              format="rgb hsl hex"
             ></color-token>
             <color-token
-              as="summer"
-              color="#f5e10a"
-              format="hex rgb hsl"
+              color="hsl(289.778, 54.217%, 48.824%)"
+              format="hsl rgb hex"
             ></color-token>
             <color-token
-              as="fall"
-              color="#f49f0a"
-              format="hex rgb hsl"
+              color="device-cmyk(70.313% 31.25% 0% 24.706%)"
+              format="cmyk hsl rgb hex"
             ></color-token>
             <color-token
-              as="winter"
-              color="#1e0af5"
-              format="hex rgb hsl"
-            ></color-token>
-          </div>
-        </section>
-        <h2>Scale</h2>
-        <section class="element">
-          <h3>&lt;color-scale&gt;</h3>
-          <div class="examples">
-            <color-scale as="seasons" format="hex hsl hwb">
-              <color-token from="spring"></color-token>
-              <color-token from="summer"></color-token>
-              <color-token from="fall"></color-token>
-              <color-token from="winter"></color-token>
-            </color-scale>
-          </div>
-        </section>
-        <h2>Dictionary</h2>
-        <section class="element">
-          <h3>&lt;color-dictionary&gt;</h3>
-          <div class="examples">
-            <color-dictionary as="color"></color-dictionary>
+              color="hwb(190 22.353% 44.706%)"
+              format="hwb hsl rgb hex"
+            >
+            </color-token>
+            <color-token
+              color="lab(64.338% -26.938 -120.767)"
+              format="lab hsl rgb hex"
+            >
+            </color-token>
+            <color-token
+              color="lch(64.089% 34.125 17.279)"
+              format="lch hsl rgb hex"
+            >
+            </color-token>
+            <color-token
+              color="oklab(68.45% 0.08525 -0.05617)"
+              format="oklab hsl rgb hex"
+            >
+            </color-token>
+            <color-token
+              color="oklch(68.547% 0.10148 146.344)"
+              format="oklch hsl rgb hex"
+            >
+            </color-token>
           </div>
         </section>
       </section>

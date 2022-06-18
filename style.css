@@ -9,31 +9,21 @@
   box-sizing: border-box;
 }
 
+h1 {
+  font-weight: 900;
+}
+
 .examples {
   display: flex;
   flex-flow: row wrap;
-  gap: 1ex;
-}
-
-color-token,
-color-scale {
-  flex: 1;
+  gap: 1.25ex;
 }
 
 color-token {
-  flex-basis: 32ch;
+  flex: 1;
+  flex-basis: 45ch;
 }
 
-color-scale {
-  display: flex;
-  flex-flow: row wrap;
-  gap: var(--spacing);
-}
-
-color-scale > color-token {
-  flex-basis: 75ch;
-}
-
-color-dictionary {
-  flex-basis: 100%;
+color-token {
+  flex-basis: 45ch;
 }

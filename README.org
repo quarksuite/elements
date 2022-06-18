@@ -5,9 +5,8 @@
 
 * Summary
 
-This repo contains vanilla web components for design token development. The main
-purpose is rendering QuarkSuite data, but they also have limited assignment and
-destructuring powers for the QuarkSuite DSL to hook into or for standalone use.
+This repo contains a small collection of vanilla web components for design token development. Rendering tokens generated
+by [[https://github.com/quarksuite/core][QuarkSuite Core]] is its main purpose, but they can be used standalone with equivalent data.
 
-As this is the initial development phase and very much a proof of concept,
-you're already finished with the README for now.
+The project is currently in its concept stage as I build the elements out and consider exactly what data to render and
+/how/ it ought to render. Expect more work in this space as Core v2 is now done and stable.
