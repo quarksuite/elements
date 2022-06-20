@@ -19,9 +19,13 @@ function template(font, style, size, sentence) {
 ${styles(font, size, weight(style))}
 <div part="content">${sentence}</div>
 <div part="data">
-  <span part="value">stack: <code part="code">"${font}"</code></span>
-  <span part="value">size: <code part="code">"${size}"</code></span>
-  <span part="value">weight: <code part="code">${weight(style)}</code></span>
+  <span part="value stack">stack: <code part="code">"${font}"</code></span>
+  <span part="value size">size: <code part="code">"${size}"</code></span>
+  <span part="value style">weight: <code part="code">${
+    weight(
+      style,
+    )
+  }</code></span>
 </div>
 `;
 
@@ -52,7 +56,7 @@ function styles(font, size, style) {
     margin-top: var(--spacing);
   }
 
-  [part="value"] {
+  [part~="value"] {
     display: block;
     margin-bottom: calc(var(--spacing) / 4);
   }

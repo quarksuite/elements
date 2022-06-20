@@ -4,13 +4,13 @@ import { convert } from "https://cdn.jsdelivr.net/gh/quarksuite/core@2.0.2/color
 function formats(color, format) {
   return format !== "none"
     ? format
-        .split(" ")
-        .map((format) => {
-          return `<span part="value">${format}: <code part="code ${
-            color === convert(format, color) && `actual`
-          }">${convert(format, color)}</code></span>`;
-        })
-        .join("")
+      .split(" ")
+      .map((format) => {
+        return `<span part="value ${format}">${format}: <code part="code ${
+          color === convert(format, color) && `actual`
+        }">${convert(format, color)}</code></span>`;
+      })
+      .join("")
     : `<span part="value" style="text-transform: lowercase;">${as} <code part="code">${color}</code></span>`;
 }
 
@@ -56,7 +56,7 @@ function styles(color) {
     margin-top: calc(var(--spacing) / 2);
   }
 
-  [part="value"] {
+  [part~="value"] {
     display: block;
     margin-bottom: calc(var(--spacing) / 4);
   }
