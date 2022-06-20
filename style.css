@@ -19,7 +19,15 @@ h1 {
   gap: 2ex;
 }
 
-color-token {
+color-token,
+text-token {
   flex: 1;
+}
+
+color-token {
   flex-basis: 64ch;
+}
+
+text-token {
+  flex-basis: 72ch;
 }
