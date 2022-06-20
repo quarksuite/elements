@@ -4,14 +4,11 @@ export class ColorToken extends HTMLElement {
   constructor() {
     super();
 
-    this.color = this.color;
-    this.format = this.format;
+    this.color = this.color || "#808080";
+    this.format = this.format || "hex rgb hsl";
 
     this.shadow = this.attachShadow({ mode: "open" });
   }
-
-  #color = "#808080";
-  #format = "hex rgb hsl";
 
   set color(value) {
     this.reflect("color", value);
@@ -43,8 +40,7 @@ export class ColorToken extends HTMLElement {
 
   // Formatting
   formats() {
-    const color = this.color || this.#color;
-    const format = this.format || this.#format;
+    const { color, format } = this;
 
     return format !== "none"
       ? format
@@ -59,7 +55,7 @@ export class ColorToken extends HTMLElement {
   }
 
   template() {
-    const color = this.color || this.#color;
+    const { color } = this;
     const tmpl = document.createElement("template");
 
     tmpl.innerHTML = `
@@ -81,7 +77,6 @@ ${this.formats()}
 
     --spacing: 1ex;
     --swatch-size: 10vh;
-    --swatch-border-width: 0.25ex;
     --data-size: 1rem;
   }
 

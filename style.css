@@ -16,14 +16,10 @@ h1 {
 .examples {
   display: flex;
   flex-flow: row wrap;
-  gap: 1.25ex;
+  gap: 2ex;
 }
 
 color-token {
   flex: 1;
-  flex-basis: 45ch;
-}
-
-color-token {
-  flex-basis: 45ch;
+  flex-basis: 64ch;
 }
