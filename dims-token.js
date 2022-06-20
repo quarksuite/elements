@@ -52,7 +52,7 @@ export class DimsToken extends HTMLElement {
     super();
 
     this.width = this.width || "100%";
-    this.height = this.height || "1ex";
+    this.height = this.height || "2vmin";
 
     this.shadow = this.attachShadow({ mode: "open" });
   }
