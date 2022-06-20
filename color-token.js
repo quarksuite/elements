@@ -71,11 +71,6 @@ function styles(color) {
 export class ColorToken extends HTMLElement {
   constructor() {
     super();
-
-    this.color = this.color || "#808080";
-    this.format = this.format || "hex rgb hsl";
-
-    this.shadow = this.attachShadow({ mode: "open" });
   }
 
   set color(value) {
@@ -107,8 +102,10 @@ export class ColorToken extends HTMLElement {
   }
 
   render() {
-    const { color, format } = this;
-    return this.shadow.append(template(color, format));
+    const color = this.color || "#808080";
+    const format = this.format || "hex rgb hsl";
+
+    return this.attachShadow({ mode: "open" }).append(template(color, format));
   }
 
   connectedCallback() {

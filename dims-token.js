@@ -50,11 +50,6 @@ function styles(width, height) {
 export class DimsToken extends HTMLElement {
   constructor() {
     super();
-
-    this.width = this.width || "100%";
-    this.height = this.height || "2vmin";
-
-    this.shadow = this.attachShadow({ mode: "open" });
   }
 
   set width(value) {
@@ -86,8 +81,10 @@ export class DimsToken extends HTMLElement {
   }
 
   render() {
-    const { width, height } = this;
-    return this.shadow.append(template(width, height));
+    const width = this.width || "100%";
+    const height = this.height || "2vmin";
+
+    return this.attachShadow({ mode: "open" }).append(template(width, height));
   }
 
   connectedCallback() {

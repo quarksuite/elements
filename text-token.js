@@ -67,14 +67,6 @@ function styles(font, size, style) {
 export class TextToken extends HTMLElement {
   constructor() {
     super();
-
-    this.font = this.font || "sans-serif";
-    this.size = this.size || "1.5rem";
-    this.style = this.style || "regular";
-    this.sentence = this.sentence ||
-      "A quart jar of oil mixed with zinc oxide makes a very bright paint.";
-
-    this.shadow = this.attachShadow({ mode: "open" });
   }
 
   set font(value) {
@@ -122,8 +114,15 @@ export class TextToken extends HTMLElement {
   }
 
   render() {
-    const { font, size, style, sentence } = this;
-    return this.shadow.append(template(font, style, size, sentence));
+    const font = this.font || "sans-serif";
+    const size = this.size || "1.5rem";
+    const style = this.style || "regular";
+    const sentence = this.sentence ||
+      "A quart jar of oil mixed with zinc oxide makes a very bright paint.";
+
+    return this.attachShadow({ mode: "open" }).append(
+      template(font, style, size, sentence),
+    );
   }
 
   connectedCallback() {
