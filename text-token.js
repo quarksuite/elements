@@ -49,7 +49,6 @@ function styles(font, size, style) {
   }
 
   [part="data"] {
-    font-size: calc(var(--content-size) / 1.25);
     margin-top: var(--spacing);
   }
 

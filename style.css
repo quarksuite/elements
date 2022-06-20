@@ -20,7 +20,8 @@ h1 {
 }
 
 color-token,
-text-token {
+text-token,
+dims-token {
   flex: 1;
 }
 
@@ -30,4 +31,8 @@ color-token {
 
 text-token {
   flex-basis: 72ch;
+}
+
+dims-token {
+  flex-basis: 100%;
 }
