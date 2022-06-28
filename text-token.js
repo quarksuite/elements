@@ -12,27 +12,31 @@ function weight(style) {
   ]).get(style);
 }
 
-function template(font, style, size, sentence) {
+function template(font, style, size, leading, measure) {
   const tmpl = document.createElement("template");
 
   tmpl.innerHTML = `
-${styles(font, size, weight(style))}
-<div part="content">${sentence}</div>
-<div part="data">
+${styles(font, size, weight(style), leading, measure)}
+<slot part="content"></slot>
+<div part="font">
   <span part="value stack">stack: <code part="code">"${font}"</code></span>
   <span part="value size">size: <code part="code">"${size}"</code></span>
-  <span part="value style">weight: <code part="code">${
+  <span part="value weight">weight: <code part="code">${
     weight(
       style,
     )
   }</code></span>
+</div>
+<div part="typography">
+  <span part="value leading">leading: <code part="code">${leading}</code></span>
+  <span part="value measure">measure: <code part="code">"${measure}"</code></span>
 </div>
 `;
 
   return tmpl.content.cloneNode(true);
 }
 
-function styles(font, size, style) {
+function styles(font, size, style, leading, measure) {
   return `
 <style>
   :host {
@@ -49,10 +53,11 @@ function styles(font, size, style) {
     font-family: ${font};
     font-size: ${size};
     font-weight: ${style};
-    line-height: 1.5;
+    line-height: ${leading};
+    max-width: ${measure};
   }
 
-  [part="data"] {
+  [part="font"], [part="typography"] {
     margin-top: var(--spacing);
   }
 
@@ -69,12 +74,12 @@ export class TextToken extends HTMLElement {
     super();
   }
 
-  set font(value) {
-    this.reflect("font", value);
+  set stack(value) {
+    this.reflect("stack", value);
   }
 
-  get font() {
-    return this.getAttribute("font");
+  get stack() {
+    return this.getAttribute("stack");
   }
 
   set size(value) {
@@ -85,20 +90,28 @@ export class TextToken extends HTMLElement {
     return this.getAttribute("size");
   }
 
-  set style(value) {
-    this.reflect("style", value);
+  set weight(value) {
+    this.reflect("weight", value);
   }
 
-  get style() {
-    return this.getAttribute("style");
+  get weight() {
+    return this.getAttribute("weight");
   }
 
-  set sentence(value) {
-    this.reflect("sentence", value);
+  set leading(value) {
+    this.reflect("leading", value);
   }
 
-  get sentence() {
-    return this.getAttribute("sentence");
+  get leading() {
+    return this.getAttribute("leading");
+  }
+
+  set measure(value) {
+    this.reflect("measure", value);
+  }
+
+  get measure() {
+    return this.getAttribute("measure");
   }
 
   reflect(name, value) {
@@ -110,18 +123,18 @@ export class TextToken extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["font", "size", "style", "sentence"];
+    return ["stack", "size", "weight", "leading", "measure"];
   }
 
   render() {
-    const font = this.font || "sans-serif";
+    const stack = this.stack || "sans-serif";
     const size = this.size || "1.5rem";
-    const style = this.style || "regular";
-    const sentence = this.sentence ||
-      "A quart jar of oil mixed with zinc oxide makes a very bright paint.";
+    const weight = this.weight || "regular";
+    const leading = this.leading || 1.5;
+    const measure = this.measure || "75ch";
 
     return this.attachShadow({ mode: "open" }).append(
-      template(font, style, size, sentence),
+      template(stack, weight, size, leading, measure),
     );
   }
 
