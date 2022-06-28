@@ -17,7 +17,7 @@ function template(font, style, size, leading, measure) {
 
   tmpl.innerHTML = `
 ${styles(font, size, weight(style), leading, measure)}
-<slot part="content"></slot>
+<div part="content">A quart jar of oil mixed with zinc oxide makes a very bright paint.</div>
 <div part="font">
   <span part="value stack">stack: <code part="code">"${font}"</code></span>
   <span part="value size">size: <code part="code">"${size}"</code></span>
