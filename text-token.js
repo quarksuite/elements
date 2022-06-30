@@ -18,18 +18,18 @@ function template(font, style, size, leading, measure) {
   tmpl.innerHTML = `
 ${styles(font, size, weight(style), leading, measure)}
 <div part="content">A quart jar of oil mixed with zinc oxide makes a very bright paint.</div>
-<div part="font">
-  <span part="value stack">stack: <code part="code">"${font}"</code></span>
-  <span part="value size">size: <code part="code">"${size}"</code></span>
-  <span part="value weight">weight: <code part="code">${
-    weight(
-      style,
-    )
-  }</code></span>
-</div>
-<div part="typography">
-  <span part="value leading">leading: <code part="code">${leading}</code></span>
-  <span part="value measure">measure: <code part="code">"${measure}"</code></span>
+<div part="data">
+  <div part="font">
+    <span part="value stack">stack: <code part="code">"${font}"</code></span>
+    <span part="value size">size: <code part="code">"${size}"</code></span>
+    <span part="value weight">weight: <code part="code">${weight(
+      style
+    )}</code></span>
+  </div>
+  <div part="typography">
+    <span part="value leading">leading: <code part="code">${leading}</code></span>
+    <span part="value measure">measure: <code part="code">"${measure}"</code></span>
+  </div>
 </div>
 `;
 
@@ -134,7 +134,7 @@ export class TextToken extends HTMLElement {
     const measure = this.measure || "75ch";
 
     return this.attachShadow({ mode: "open" }).append(
-      template(stack, weight, size, leading, measure),
+      template(stack, weight, size, leading, measure)
     );
   }
 
